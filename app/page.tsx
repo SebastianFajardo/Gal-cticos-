@@ -16,54 +16,41 @@ const players = [
   { number: 11, name: 'Gabriel Silva', position: 'EI', matches: 11, goals: 6, assists: 7, yellow: 1 },
 ];
 
+type PlayerData = typeof players[number];
+
 export default function Home() {
-  const [selected, setSelected] = useState(players[9]);
+  const [selected, setSelected] = useState<PlayerData>(players[9]);
 
   return (
-    <main className="site">
-      <header className="hero">
-        <div>
-          <span className="eyebrow">GALÁCTICOS FC</span>
-          <h1>Plantilla <span>2026</span></h1>
-          <p>Conoce nuestra alineación, jugadores y estadísticas de temporada.</p>
-        </div>
-        <div className="record"><strong>12</strong><span>Partidos</span></div>
-        <div className="record"><strong>38</strong><span>Goles</span></div>
-      </header>
+    <main>
+      <nav className="nav"><div className="logo">GALÁCTICOS</div><div className="links"><a href="#historia">Historia</a><a href="#equipos">Equipos</a><a href="#plantilla">Plantilla</a><a href="#noticias">Noticias</a></div></nav>
 
-      <section className="content">
-        <div className="pitch-card">
-          <div className="section-title"><div><span>ALINEACIÓN</span><h2>Once inicial</h2></div><b>4-3-3</b></div>
-          <div className="pitch">
-            <div className="half-line" />
-            <div className="center-circle" />
-            <div className="goal top" /><div className="goal bottom" />
-            <Player player={players[9]} onClick={setSelected} />
-            <div className="row r1"><Player player={players[10]} onClick={setSelected} /><Player player={players[6]} onClick={setSelected} /><Player player={players[8]} onClick={setSelected} /></div>
-            <div className="row r2"><Player player={players[4]} onClick={setSelected} /><Player player={players[7]} onClick={setSelected} /><Player player={players[5]} onClick={setSelected} /></div>
-            <div className="row r3"><Player player={players[3]} onClick={setSelected} /><Player player={players[2]} onClick={setSelected} /><Player player={players[1]} onClick={setSelected} /></div>
-            <div className="row keeper"><Player player={players[0]} onClick={setSelected} /></div>
-          </div>
-        </div>
+      <section className="hero"><div className="heroContent"><span className="eyebrow">PASIÓN · TALENTO · FÚTBOL</span><h1>Los que nacieron<br/><em>para ser grandes.</em></h1><p>Una nueva generación de fútbol. Intensidad, talento y mentalidad ganadora en cada partido.</p><a className="button" href="#plantilla">Conoce el equipo →</a></div><div className="ball">⚽</div></section>
 
-        <aside className="panel">
-          <div className="section-title"><div><span>JUGADOR</span><h2>Estadísticas</h2></div></div>
-          <div className="profile"><div className="avatar">{selected.number}</div><div><h3>{selected.name}</h3><p>{selected.position} · #{selected.number}</p></div></div>
-          <div className="stats-grid">
-            <Stat label="Partidos" value={selected.matches} /><Stat label="Goles" value={selected.goals} /><Stat label="Asistencias" value={selected.assists} /><Stat label="Amarillas" value={selected.yellow} />
-          </div>
-          <div className="table-title">Plantilla completa</div>
-          <div className="players-list">{players.map((p) => <button className={selected.number === p.number ? 'player active' : 'player'} key={p.number} onClick={() => setSelected(p)}><span className="shirt">{p.number}</span><span><strong>{p.name}</strong><small>{p.position}</small></span><b>{p.goals} ⚽</b></button>)}</div>
-        </aside>
+      <section id="historia" className="intro"><span className="eyebrow">NUESTRA IDENTIDAD</span><h2>El fútbol no se juega.<br/><em>Se vive.</em></h2><p>Galácticos es una comunidad que comparte una obsesión: competir, mejorar y disfrutar el juego. Cada entrenamiento es una oportunidad para demostrar de qué estamos hechos.</p></section>
+
+      <section id="equipos" className="stats"><div><strong>01</strong><span>Un solo objetivo</span></div><div><strong>11</strong><span>Jugadores en cancha</span></div><div><strong>∞</strong><span>Pasión por el fútbol</span></div></section>
+
+      <section id="plantilla" className="squad-section">
+        <div className="squad-heading"><div><span className="eyebrow">PLANTILLA 2026</span><h2>El equipo.</h2><p>Conoce nuestra alineación, posiciones y estadísticas.</p></div><strong>4-3-3</strong></div>
+        <div className="squad-content">
+          <div className="pitch-card"><div className="pitch">
+            <div className="half-line"/><div className="center-circle"/><div className="goal top"/><div className="goal bottom"/>
+            <div className="row striker"><Player player={players[9]} onClick={setSelected}/></div>
+            <div className="row r1"><Player player={players[10]} onClick={setSelected}/><Player player={players[6]} onClick={setSelected}/><Player player={players[8]} onClick={setSelected}/></div>
+            <div className="row r2"><Player player={players[4]} onClick={setSelected}/><Player player={players[7]} onClick={setSelected}/><Player player={players[5]} onClick={setSelected}/></div>
+            <div className="row r3"><Player player={players[3]} onClick={setSelected}/><Player player={players[2]} onClick={setSelected}/><Player player={players[1]} onClick={setSelected}/></div>
+            <div className="row keeper"><Player player={players[0]} onClick={setSelected}/></div>
+          </div></div>
+          <aside className="player-panel"><span className="eyebrow">JUGADOR</span><h3>Estadísticas</h3><div className="profile"><div className="avatar">{selected.number}</div><div><strong>{selected.name}</strong><small>{selected.position} · #{selected.number}</small></div></div><div className="player-stats"><Stat label="Partidos" value={selected.matches}/><Stat label="Goles" value={selected.goals}/><Stat label="Asistencias" value={selected.assists}/><Stat label="Amarillas" value={selected.yellow}/></div><span className="list-label">PLANTILLA COMPLETA</span><div className="players-list">{players.map(p=><button className={selected.number===p.number?'player active':'player'} key={p.number} onClick={()=>setSelected(p)}><span className="shirt">{p.number}</span><span><b>{p.name}</b><small>{p.position}</small></span><i>{p.goals} ⚽</i></button>)}</div></aside>
+        </div>
       </section>
+
+      <section id="noticias" className="cta"><span className="eyebrow">GALÁCTICOS</span><h2>El próximo capítulo<br/>lo escribimos <em>juntos.</em></h2><a className="button" href="mailto:galacticos@example.com">Únete a nosotros →</a></section>
+      <footer><span>© 2026 GALÁCTICOS</span><span>Fútbol · Comunidad · Pasión</span></footer>
     </main>
   );
 }
 
-function Player({ player, onClick }: { player: typeof players[number]; onClick: (p: typeof players[number]) => void }) {
-  return <button className="pitch-player" onClick={() => onClick(player)}><span>{player.number}</span><strong>{player.name.split(' ')[0]}</strong><small>{player.position}</small></button>;
-}
-
-function Stat({ label, value }: { label: string; value: number }) {
-  return <div className="stat"><strong>{value}</strong><span>{label}</span></div>;
-}
+function Player({ player, onClick }: { player: PlayerData; onClick: (p: PlayerData) => void }) { return <button className="pitch-player" onClick={()=>onClick(player)}><span>{player.number}</span><b>{player.name.split(' ')[0]}</b><small>{player.position}</small></button>; }
+function Stat({ label, value }: { label: string; value: number }) { return <div><strong>{value}</strong><span>{label}</span></div>; }
